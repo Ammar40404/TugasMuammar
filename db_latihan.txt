@@ -1,0 +1,169 @@
+CREATE DATABASE ujikompenjualan;
+
+USE ujikompenjuala;
+
+-- Tabel untuk menyimpan level pengguna (admin, kasir, manager)
+CREATE TABLE level (
+    id_level INT PRIMARY KEY AUTO_INCREMENT,
+    level VARCHAR(50) NOT NULL
+);
+
+-- Tabel untuk menyimpan data kasir
+CREATE TABLE kasir (
+    id_kasir INT PRIMARY KEY AUTO_INCREMENT,
+    nama_kasir VARCHAR(100) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    id_level INT,
+    FOREIGN KEY (id_level) REFERENCES level(id_level)
+);
+
+-- Tabel untuk menyimpan data admin
+CREATE TABLE admin (
+    id_admin INT PRIMARY KEY AUTO_INCREMENT,
+    nama_admin VARCHAR(100) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    id_level INT,
+    FOREIGN KEY (id_level) REFERENCES level(id_level)
+);
+
+-- Tabel untuk menyimpan data manager
+CREATE TABLE manager (
+    id_manager INT PRIMARY KEY AUTO_INCREMENT,
+    nama_manager VARCHAR(100) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    id_level INT,
+    FOREIGN KEY (id_level) REFERENCES level(id_level)
+);
+
+-- Tabel untuk menyimpan data pembeli
+CREATE TABLE pembeli (
+    id_pembeli INT PRIMARY KEY AUTO_INCREMENT,
+    nama_pembeli VARCHAR(100) NOT NULL,
+    alamat TEXT,
+    telepon VARCHAR(15),
+    email VARCHAR(100)
+);
+
+-- Tabel untuk menyimpan data barang
+CREATE TABLE barang (
+    id_barang INT PRIMARY KEY AUTO_INCREMENT,
+    nama_barang VARCHAR(100) NOT NULL,
+    satuan VARCHAR(50), -- Satuan unit (Unit of Measure)
+    stok INT DEFAULT 0, -- Menambahkan kolom stok
+    harga_beli DECIMAL(10, 2),
+    harga_jual DECIMAL(10, 2)
+);
+
+-- Tabel untuk menyimpan data transaksi
+CREATE TABLE transaksi (
+    id_transaksi INT PRIMARY KEY AUTO_INCREMENT,
+    id_barang INT,
+    id_pembeli INT,
+    id_kasir INT,
+    jumlah INT,
+    harga DECIMAL(10, 2),
+    total DECIMAL(10, 2),
+    tanggal_transaksi DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_barang) REFERENCES barang(id_barang),
+    FOREIGN KEY (id_pembeli) REFERENCES pembeli(id_pembeli),
+    FOREIGN KEY (id_kasir) REFERENCES kasir(id_kasir)
+);
+
+-- Tabel untuk menyimpan data penjualan (ringkasan transaksi)
+CREATE TABLE penjualan (
+    id_penjualan INT PRIMARY KEY AUTO_INCREMENT,
+    id_transaksi INT,
+    total_penjualan DECIMAL(10, 2),
+    tanggal_penjualan DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_transaksi) REFERENCES transaksi(id_transaksi)
+);
+
+
+
+
+ini veesi varchar
+CREATE DATABASE ujikompenjualan;
+
+USE ujikompenjuala;
+
+-- Tabel untuk menyimpan level pengguna (admin, kasir, manager)
+CREATE TABLE level (
+    id_level INT PRIMARY KEY AUTO_INCREMENT,
+    level VARCHAR(50) NOT NULL
+);
+
+-- Tabel untuk menyimpan data kasir
+CREATE TABLE kasir (
+    id_kasir INT PRIMARY KEY AUTO_INCREMENT,
+    nama_kasir VARCHAR(100) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    id_level INT,
+    FOREIGN KEY (id_level) REFERENCES level(id_level)
+);
+
+-- Tabel untuk menyimpan data admin
+CREATE TABLE admin (
+    id_admin INT PRIMARY KEY AUTO_INCREMENT,
+    nama_admin VARCHAR(100) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    id_level INT,
+    FOREIGN KEY (id_level) REFERENCES level(id_level)
+);
+
+-- Tabel untuk menyimpan data manager
+CREATE TABLE manager (
+    id_manager INT PRIMARY KEY AUTO_INCREMENT,
+    nama_manager VARCHAR(100) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    id_level INT,
+    FOREIGN KEY (id_level) REFERENCES level(id_level)
+);
+
+-- Tabel untuk menyimpan data pembeli
+CREATE TABLE pembeli (
+    id_pembeli INT PRIMARY KEY AUTO_INCREMENT,
+    nama_pembeli VARCHAR(100) NOT NULL,
+    alamat TEXT,
+    telepon VARCHAR(15),
+    email VARCHAR(100)
+);
+
+-- Tabel untuk menyimpan data barang
+CREATE TABLE barang (
+    id_barang INT PRIMARY KEY AUTO_INCREMENT,
+    nama_barang VARCHAR(100) NOT NULL,
+    satuan VARCHAR(50), -- Satuan unit (Unit of Measure)
+    stok INT DEFAULT 0, -- Menambahkan kolom stok
+    harga_beli VARCHAR(50), -- Menggunakan VARCHAR (tidak disarankan)
+    harga_jual VARCHAR(50) -- Menggunakan VARCHAR (tidak disarankan)
+);
+
+-- Tabel untuk menyimpan data transaksi
+CREATE TABLE transaksi (
+    id_transaksi INT PRIMARY KEY AUTO_INCREMENT,
+    id_barang INT,
+    id_pembeli INT,
+    id_kasir INT,
+    jumlah INT,
+    harga VARCHAR(50), -- Menggunakan VARCHAR (tidak disarankan)
+    total VARCHAR(50), -- Menggunakan VARCHAR (tidak disarankan)
+    tanggal_transaksi DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_barang) REFERENCES barang(id_barang),
+    FOREIGN KEY (id_pembeli) REFERENCES pembeli(id_pembeli),
+    FOREIGN KEY (id_kasir) REFERENCES kasir(id_kasir)
+);
+
+-- Tabel untuk menyimpan data penjualan (ringkasan transaksi)
+CREATE TABLE penjualan (
+    id_penjualan INT PRIMARY KEY AUTO_INCREMENT,
+    id_transaksi INT,
+    total_penjualan VARCHAR(50), -- Menggunakan VARCHAR (tidak disarankan)
+    tanggal_penjualan DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_transaksi) REFERENCES transaksi(id_transaksi)
+);
